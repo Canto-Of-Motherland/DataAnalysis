@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+    <title>情感分类工作台</title>
+    <script type="text/javascript" src="{% static 'js/self/opinionClassification.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/self/opinionClassification.css' %}">
+{% endblock head %}
+{% block content %}
+    {% csrf_token %}
+    <label class="content_title">群体极化状态与情感分类工作台</label>
+    <div class="split_title"></div>
+    <div class="content">
+        <div class="operate_panel">
+            <div class="switch_operate_pattern">
+                <div class="split_switch"></div>
+                <label class="switch_item switch_item_topic" id="topic" onclick="switchPanel(this)">主题爬取</label>
+                <label class="switch_item switch_item_file" id="file" onclick="switchPanel(this)">上传文本</label>
+            </div>
+            <button class="btn btn_submit_topic" type="button" onclick="submit()">开始分析</button>
+            <button class="btn btn_submit_file" type="button" onclick="submit()">开始分析</button>
+            <div class="operate_panel_content">
+                <div class="operate_with_topic">
+                    <div class="topic">
+                        <label class="labels label_topic">主　题</label>
+                        <input class="inputs input_topic" name="input_topic" id="input_topic">
+                    </div>
+                    <div class="time_start">
+                        <label class="labels label_time_start">开始日期</label>
+                        <input class="inputs input_time_start" name="input_time_start" id="input_time_start">
+                    </div>
+                    <div class="time_end">
+                        <label class="labels label_time_end">结束日期</label>
+                        <input class="inputs input_time_end" name="input_time_end" id="input_time_end">
+                    </div>
+                    <div class="cookie">
+                        <label class="labels label_cookie">Cookie</label>
+                        <input class="inputs input_cookie" name="input_cookie" id="input_cookie">
+                        <a class="label_tips" href="https://github.com/Erutaner/weibo_text_toolkit">如何获得微博Cookie？</a>
+                    </div>
+                </div>
+                <div class="operate_with_file">
+                    <div class="file">
+                        <div class="cover_file">选择文件</div>
+                        <input class="input_file" name="input_file" id="input_file" type="file" onchange="changePath(this)">
+                        <label class="replace_file_path">未选择文件</label>
+                    </div>
+                    <div class="clean">
+                        <label class="labels label_clean">清洗数据</label>
+                        <input type="radio" class="radios" name="radios_1" value="1">
+                    </div>
+                </div>
+                <div class="split_operate_panel"></div>
+            </div>
+            <div class="expand" onclick="expand(this)">收起</div>
+        </div>
+        <div class="figure_block">
+            <div class="numbers">
+                <div class="number_container number_container_1" onmouseover="activeColor(this)" onmouseleave="returnColor(this)">
+                    <label class="number_title">舆情信息数</label>
+                    <br>
+                    <label class="number number_1">0</label>
+                </div>
+                <div class="number_container number_container_2" onmouseover="activeColor(this)" onmouseleave="returnColor(this)">
+                    <label class="number_title">总来源数</label>
+                    <br>
+                    <label class="number number_2">0</label>
+                </div>
+                <div class="number_container number_container_3" onmouseover="activeColor(this)" onmouseleave="returnColor(this)">
+                    <label class="number_title">情感数</label>
+                    <br>
+                    <label class="number number_3">0</label>
+                </div>
+                <div class="number_container number_container_4" onmouseover="activeColor(this)" onmouseleave="returnColor(this)">
+                    <label class="number_title">平均极化水平</label>
+                    <br>
+                    <label class="number number_4">0.000</label>
+                </div>
+                <div class="number_container number_container_5" onmouseover="activeColor(this)" onmouseleave="returnColor(this)">
+                    <label class="number_title">最高极化水平</label>
+                    <br>
+                    <label class="number number_5">0.000</label>
+                </div>
+                <div class="number_container number_container_6" onmouseover="activeColor(this)" onmouseleave="returnColor(this)">
+                    <label class="number_title">最低极化水平</label>
+                    <br>
+                    <label class="number number_6">0.000</label>
+                </div>
+            </div>
+            <div class="figure_block_1_1">
+                <label class="figure_title">群体极化指数地图</label>
+                <br>
+                <label class="figure_subtitle">群体极化指数地图向您对比展示全国（含港澳台）各省级行政单位的在该话题下的群体极化状态</label>
+                <div class="figure_container_1_1">
+                    <label class="info">计算中，请稍后……</label>
+                    <div class="figure figure_1_1" id="figure_1_1"></div>
+                </div>
+            </div>
+            <div class="figure_block_1_2">
+                <label class="figure_title">情感分析结果</label>
+                <br>
+                <label class="figure_subtitle">情感分析结果奖从正负中三向对文本进行分类并呈现其分布状态</label>
+                <div class="figure_container_1_2">
+                    <label class="info">计算中，请稍后……</label>
+                    <div class="figure figure_1_2" id="figure_1_2"></div>
+                </div>
+            </div>
+        </div>    
+    </div>
+{% endblock content %}
+

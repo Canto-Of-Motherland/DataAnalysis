@@ -1,0 +1,49 @@
+{% load static %}
+{% csrf_token %}
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>首页</title>
+        <script type="text/javascript" src="{% static 'js/tool/jquery-3-7-1.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/tool/sweetalert2.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/self/index.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'css/self/index.css' %}">
+    </head>
+    <body>
+        <div class="navigation">
+            <div class="navigation_group">
+                <a class="link to_sentence" href="{% url 'DataAnalysisApp:sentence' %}">句分析工作台</a>
+                <a class="link to_classification_desk" href="{% url 'DataAnalysisApp:opinionClassification' %}">情感分类工作台</a>
+                <a class="link to_analysis_desk" href="{% url 'DataAnalysisApp:opinionAnalysis' %}">舆情分析工作台</a>
+                <label class="split_navigation">|　　　<a class="link to_sign_in" href="{% url 'DataAnalysisApp:'|add:data.url %}">{{ data.username }}</a></label>
+                <button type="button" class="btn_logout" onclick="logout()">LOG OUT</button>
+            </div>
+        </div>
+        <div class="block_background">
+            <div class="background_cover"></div>
+        </div>
+        <div class="block_title">
+            <div class="title_text">更精确 · 更便捷 · 更强大</div>
+            <div class="subtitle_text">MORE ACCURATE · MORE CONVENIENT · MORE POWERFUL</div>
+            <div class="split_title"></div>
+            <div class="block_function">
+                <div class="block_item block_item_1" onclick="window.location.href='/sentence/'">
+                    <div class="function_item function_1">句分析工作台</div>
+                    <div class="description_item description_1">基于RNN、BERT等多模型的高精度句分析，包含词性标注与命名实体识别</div>
+                </div>
+                <div class="block_item block_item_2" onclick="window.location.href='/opinion-classification/'">
+                    <div class="function_item function_2">情感分析工作台</div>
+                    <div class="description_item description_2">八百万预训练语料与两万条自标注数据训练Ernie-Multilayer Bi-LSTM模型支持，高精度情感六分类，支持隐喻、嘲讽、阴阳等复杂情感表达方式识别，并基于情感分类进行群体极化水平的地域分析对比</div>    
+                </div>
+                <div class="block_item block_item_3" onclick="window.location.href='/opinion-analysis/'">
+                    <div class="function_item function_3">舆情分析工作台</div>
+                    <div class="description_item description_3">八百万预训练语料与两万条自标注数据训练Ernie-Multilayer Bi-LSTM模型支持，高精度Kneedle Cosine K-means算法聚类，簇内间加权余弦极化指数与归一化熵测度精准衡量群体极化，多维高精度识别跟踪群体极化状态。</div>    
+                </div>
+            </div>
+        </div>
+        <div class="author">武汉大学 · 信息管理学院</div>
+    </body>
+</html>

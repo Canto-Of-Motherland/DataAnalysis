@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript" src="{% static 'js/tool/jquery-3-7-1.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/tool/plotly.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/tool/echarts.js' %}"></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/self/base.css' %}">
+        {% block head %}
+        {% endblock head %}
+    </head>
+    <body>
+        <div class="head">
+            <label class="head_title">综合文本分析系统</label>
+        </div>
+        <div class="navigation">
+            <div class="navigation_group">
+                <a class="link to_main" href="{% url 'DataAnalysisApp:index' %}">首页</a>
+                <a class="link to_sentence" href="{% url 'DataAnalysisApp:sentence' %}">句分析工作台</a>
+                <a class="link to_classification_desk" href="{% url 'DataAnalysisApp:opinionClassification' %}">情感分类工作台</a>
+                <a class="link to_analysis_desk" href="{% url 'DataAnalysisApp:opinionAnalysis' %}">舆情分析工作台</a>
+                <label class="split_navigation">|　<a class="link to_sign_in" href="{% url 'DataAnalysisApp:'|add:data.url %}">{{ data.username }}</a></label>
+                <button type="button" class="btn_logout" onclick="logout()">LOG OUT</button>
+                <div class="signal_page"></div>
+            </div>
+        </div>
+        {% block content %}
+        {% endblock content %}
+        <div class="footer">
+            <div class="author">武汉大学 · 信息管理学院 · 刘子忻</div>
+        </div>
+    </body>
+</html>

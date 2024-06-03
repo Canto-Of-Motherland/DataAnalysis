@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+    <title>舆情分析工作台</title>
+    <script type="text/javascript" src="{% static 'js/self/opinionAnalysis.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/self/opinionAnalysis.css' %}">
+{% endblock head %}
+{% block content %}
+    {% csrf_token %}
+    <label class="content_title">舆情与群体极化演化分析工作台</label>
+    <div class="split_title"></div>
+    <div class="content">
+        <div class="operate_panel">
+            <div class="switch_operate_pattern">
+                <div class="split_switch"></div>
+                <label class="switch_item switch_item_topic" id="topic" onclick="switchPanel(this)">主题爬取</label>
+                <label class="switch_item switch_item_file" id="file" onclick="switchPanel(this)">上传文本</label>
+            </div>
+            <button class="btn btn_submit_topic" type="button" onclick="submit()">开始分析</button>
+            <button class="btn btn_submit_file" type="button" onclick="submit()">开始分析</button>
+            <div class="operate_panel_content">
+                <div class="operate_with_topic">
+                    <div class="topic">
+                        <label class="labels label_topic">主　题</label>
+                        <input class="inputs input_topic" name="input_topic" id="input_topic">
+                    </div>
+                    <div class="time_start">
+                        <label class="labels label_time_start">开始日期</label>
+                        <input class="inputs input_time_start" name="input_time_start" id="input_time_start">
+                    </div>
+                    <div class="time_end">
+                        <label class="labels label_time_end">结束日期</label>
+                        <input class="inputs input_time_end" name="input_time_end" id="input_time_end">
+                    </div>
+                    <div class="cookie">
+                        <label class="labels label_cookie">Cookie</label>
+                        <input class="inputs input_cookie" name="input_cookie" id="input_cookie">
+                        <a class="label_tips" href="https://github.com/Erutaner/weibo_text_toolkit">如何获得微博Cookie？</a>
+                    </div>
+                </div>
+                <div class="operate_with_file">
+                    <div class="file">
+                        <div class="cover_file">选择文件</div>
+                        <input class="input_file" name="input_file" id="input_file" type="file" onchange="changePath(this)">
+                        <label class="replace_file_path">未选择文件</label>
+                    </div>
+                    <div class="clean">
+                        <label class="labels label_clean">清洗数据</label>
+                        <input type="radio" class="radios" name="radios_1" value="1">
+                    </div>
+                </div>
+                <div class="split_operate_panel"></div>
+            </div>
+            <div class="expand" onclick="expand(this)">收起</div>
+        </div>
+        <div class="figure_block">
+            <div class="numbers">
+                <div class="number_container number_container_1" onmouseover="activeColor(this)" onmouseleave="returnColor(this)">
+                    <label class="number_title">舆情信息数</label>
+                    <br>
+                    <label class="number number_1">0</label>
+                </div>
+                <div class="number_container number_container_2" onmouseover="activeColor(this)" onmouseleave="returnColor(this)">
+                    <label class="number_title">时间区间长度</label>
+                    <br>
+                    <label class="number number_2">0</label>
+                </div>
+                <div class="number_container number_container_3" onmouseover="activeColor(this)" onmouseleave="returnColor(this)">
+                    <label class="number_title">舆情峰值</label>
+                    <br>
+                    <label class="number number_3">0</label>
+                </div>
+                <div class="number_container number_container_4" onmouseover="activeColor(this)" onmouseleave="returnColor(this)">
+                    <label class="number_title">平均极化水平(WM)</label>
+                    <br>
+                    <label class="number number_4">0.000</label>
+                </div>
+                <div class="number_container number_container_5" onmouseover="activeColor(this)" onmouseleave="returnColor(this)">
+                    <label class="number_title">最高极化水平(EM)</label>
+                    <br>
+                    <label class="number number_5">0.000</label>
+                </div>
+                <div class="number_container number_container_6" onmouseover="activeColor(this)" onmouseleave="returnColor(this)">
+                    <label class="number_title">最高极化水平(WM)</label>
+                    <br>
+                    <label class="number number_6">0.000</label>
+                </div>
+            </div>
+            <div class="figure_block_2_1">
+                <label class="figure_title">四维群体极化聚类结果</label>
+                <br>
+                <label class="figure_subtitle">聚类结果向您展示在您指定的时间范围内群体极化细节状态的时序变化与演化过程</label>
+                <div class="figure_container_2_1">
+                    <label class="info">计算中，请稍后……</label>
+                    <div class="figure figure_2_1" id="figure_2_1"></div>
+                </div>
+            </div>
+            <label class="switch_figure" onclick="changeFigure(this)">看舆情走势</label>
+            <div class="figure_block_2_2">
+                <label class="figure_title">双指标极化走势</label>
+                <br>
+                <label class="figure_subtitle">双指标极化走势向您展示总体群体极化水平的演化</label>
+                <div class="figure_container_2_2">
+                    <label class="info">计算中，请稍后……</label>
+                    <div class="figure figure_2_2" id="figure_2_2"></div>
+                </div>
+            </div>
+            <div class="figure_block_2_3">
+                <label class="figure_title">舆情走势</label>
+                <br>
+                <label class="figure_subtitle">舆情走势向您展示舆情演化趋势，配合极化走势观测</label>
+                <div class="figure_container_2_3">
+                    <label class="info">计算中，请稍后……</label>
+                    <div class="figure figure_2_3" id="figure_2_3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

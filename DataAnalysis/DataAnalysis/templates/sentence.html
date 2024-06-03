@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+    <title>句分析工作台</title>
+    <script type="text/javascript" src="{% static 'js/self/sentence.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/self/sentence.css' %}">
+{% endblock head %}
+{% block content %}
+    {% csrf_token %}
+    <label class="content_title">句分析工作台</label>
+    <div class="split_title"></div>
+    <div class="content">
+        <div class="content_1" id="content_1">
+            <div class="title_1">词性标注</div>
+            <div class="inner_content_1">
+                <textarea class="textarea_1" placeholder="请输入要标注的语段"></textarea>
+                <button type="button" class="btn_tag" onclick="tag(this)">开始标记</button>
+                <select class="dropdown">
+                    <option value="1">RNN</option>
+                    <option value="2">GRU</option>
+                    <option value="3">LSTM</option>
+                    <option value="4">BERT</option>
+                </select>
+                <div class="output_area_1">
+                    <div class="output_area_inner_1"></div>
+                </div>
+            </div>
+        </div>
+        <div class="content_2" id="content_2">
+            <div class="title_2">命名实体识别</div>
+            <div class="inner_content_2">
+                <textarea class="textarea_2" placeholder="请输入要标注的语段"></textarea>
+                <button type="button" class="btn_recognize" onclick="recognize(this)">开始识别</button>
+                <div class="output_area_2">
+                    <div class="entity_title">
+                        <div class="entity_name_title">ENTITY NAME</div>
+                        <div class="entity_tag_title">ENTITY TAG</div>
+                    </div>
+                    <div class="output_area_inner_2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
