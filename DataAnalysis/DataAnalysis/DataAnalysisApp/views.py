@@ -7,9 +7,9 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from DataAnalysisApp.models import User
 from DataAnalysisApp import utils
-# from DataAnalysisApp.model_script.pos_rnn import Bi_RNN, Bi_GRU, Bi_LSTM
-# from DataAnalysisApp.model_script.pos_BERT import BERT_POS
-# from DataAnalysisApp.model_script.my_NER import BERT_NER
+from DataAnalysisApp.model_script.pos_rnn import Bi_RNN, Bi_GRU, Bi_LSTM
+from DataAnalysisApp.model_script.pos_BERT import BERT_POS
+from DataAnalysisApp.model_script.my_NER import BERT_NER
 
 base_dir = Path(__file__).resolve().parent.parent
 
@@ -162,20 +162,18 @@ def sentence(request):
         if func_code == '1':
             sentence = request.POST.get('sentence')
             model = request.POST.get('model')
-            # if model == '1':
-            #     data = Bi_RNN(sentence)
-            # if model == '2':
-            #     data = Bi_GRU(sentence)
-            # if model == '3':
-            #     data = Bi_LSTM(sentence)
-            # if model == '4':
-            #     data = BERT_POS(sentence)
-            data = [{'word': '你', 'tag': 'AA'}, {'word': '好', 'tag': 'BB'}, {'word': '吗', 'tag': 'CC'}]
+            if model == '1':
+                data = Bi_RNN(sentence)
+            if model == '2':
+                data = Bi_GRU(sentence)
+            if model == '3':
+                data = Bi_LSTM(sentence)
+            if model == '4':
+                data = BERT_POS(sentence)
             return JsonResponse({'data': data})
         elif func_code == '2':
             sentence = request.POST.get('sentence')
-            data = [{'entity': '你', 'tag': 'AA'}, {'entity': '武汉大学', 'tag': 'CC'}]
-            # data = BERT_NER(sentence)
+            data = BERT_NER(sentence)
             return JsonResponse({'data': data})
 
 
